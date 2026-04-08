@@ -17,24 +17,26 @@ Most startups that need math in their product either hardcode fragile formulas, 
 ## Domains
 
 ### Financial Mathematics
-| Endpoint | Description |
-|---|---|
-| `POST /v1/finance/compound-interest` | Final amount and interest earned over n periods |
-| `POST /v1/finance/amortization` | Full payment schedule broken down by principal and interest |
-| `POST /v1/finance/npv` | Net present value of a future cash flow series |
-| `POST /v1/finance/irr` | Internal rate of return for an investment |
-| `POST /v1/finance/break-even` | Break-even units and revenue at a given cost structure |
-| `POST /v1/finance/roi` | Return on investment with annualized breakdown |
+
+| Endpoint                             | Description                                                 |
+| ------------------------------------ | ----------------------------------------------------------- |
+| `POST /v1/finance/compound-interest` | Final amount and interest earned over n periods             |
+| `POST /v1/finance/amortization`      | Full payment schedule broken down by principal and interest |
+| `POST /v1/finance/npv`               | Net present value of a future cash flow series              |
+| `POST /v1/finance/irr`               | Internal rate of return for an investment                   |
+| `POST /v1/finance/break-even`        | Break-even units and revenue at a given cost structure      |
+| `POST /v1/finance/roi`               | Return on investment with annualized breakdown              |
 
 ### Statistics & Data Analysis
-| Endpoint | Description |
-|---|---|
-| `POST /v1/stats/summary` | Mean, median, std dev, skewness, kurtosis, range |
-| `POST /v1/stats/regression/linear` | Slope, intercept, R², and predicted values |
-| `POST /v1/stats/correlation` | Pearson correlation matrix for a dataset |
-| `POST /v1/stats/outliers` | Flagged outliers using IQR and Z-score methods |
-| `POST /v1/stats/moving-average` | SMA and EMA series for a given window size |
-| `POST /v1/stats/percentiles` | Value at each percentile with distribution summary |
+
+| Endpoint                           | Description                                        |
+| ---------------------------------- | -------------------------------------------------- |
+| `POST /v1/stats/summary`           | Mean, median, std dev, skewness, kurtosis, range   |
+| `POST /v1/stats/regression/linear` | Slope, intercept, R², and predicted values         |
+| `POST /v1/stats/correlation`       | Pearson correlation matrix for a dataset           |
+| `POST /v1/stats/outliers`          | Flagged outliers using IQR and Z-score methods     |
+| `POST /v1/stats/moving-average`    | SMA and EMA series for a given window size         |
+| `POST /v1/stats/percentiles`       | Value at each percentile with distribution summary |
 
 ---
 
@@ -74,23 +76,33 @@ Documentation will be available at `http://localhost:8000/docs`.
 ### Run Without Docker
 
 ```bash
-python -m venv venv
-source venv/bin/activate
+py -3.12 -m venv venv
+source venv/Scripts/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+```
+
+### Development
+
+```bash
+source venv/Scripts/activate
+pip install -r requirements-dev.txt
+ruff check .
+ruff format .
+pytest -q
 ```
 
 ---
 
 ## Environment Variables
 
-| Variable | Description |
-|---|---|
-| `DATABASE_URL` | PostgreSQL connection string |
-| `REDIS_URL` | Redis connection string |
-| `SECRET_KEY` | Secret key for signing tokens |
+| Variable         | Description                                        |
+| ---------------- | -------------------------------------------------- |
+| `DATABASE_URL`   | PostgreSQL connection string                       |
+| `REDIS_URL`      | Redis connection string                            |
+| `SECRET_KEY`     | Secret key for signing tokens                      |
 | `API_RATE_LIMIT` | Max requests per minute per API key (default: 100) |
-| `ENVIRONMENT` | `development`, `staging`, or `production` |
+| `ENVIRONMENT`    | `development`, `staging`, or `production`          |
 
 See `.env.example` for a full reference.
 
@@ -98,7 +110,7 @@ See `.env.example` for a full reference.
 
 ## Project Structure
 
-```
+```mk
 mathapi/
 ├── app/
 │   ├── api/
@@ -154,7 +166,7 @@ curl -X POST http://localhost:8000/v1/finance/compound-interest \
 
 This project follows conventional commits.
 
-```
+```mk
 feat:     new feature or endpoint
 fix:      bug fix
 chore:    tooling, config, dependencies
