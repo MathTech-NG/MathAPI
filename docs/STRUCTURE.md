@@ -1,6 +1,6 @@
 # MathAPI — Project Structure
 
-```
+```mk
 mathapi/
 │
 ├── app/
