@@ -20,3 +20,15 @@ class ROIRequest(BaseModel):
 class ROIResponse(BaseModel):
     net_profit: float
     roi_percent: float
+
+
+class BreakEvenRequest(BaseModel):
+    fixed_costs: float = Field(gt=0)
+    price_per_unit: float = Field(gt=0)
+    variable_cost_per_unit: float = Field(gt=0)
+
+
+class BreakEvenResponse(BaseModel):
+    units: float
+    revenue: float
+    contribution_margin: float

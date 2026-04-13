@@ -1,11 +1,14 @@
 from fastapi import APIRouter
 
 from app.api.v1.finance.schemas import (
+    BreakEvenRequest,
+    BreakEvenResponse,
     CompoundInterestRequest,
     CompoundInterestResponse,
     ROIRequest,
     ROIResponse,
 )
+from app.computation.finance.break_even import calculate_break_even
 from app.computation.finance.compound_interest import calculate_compound_interest
 from app.computation.finance.roi import calculate_roi
 
@@ -26,3 +29,13 @@ def compound_interest(payload: CompoundInterestRequest) -> CompoundInterestRespo
 def roi(payload: ROIRequest) -> ROIResponse:
     net_profit, roi_percent = calculate_roi(gain=payload.gain, cost=payload.cost)
     return ROIResponse(net_profit=net_profit, roi_percent=roi_percent)
+
+
+@router.post("/break-even", response_model=BreakEvenResponse)
+def break_even(payload: BreakEvenRequest) -> BreakEvenResponse:
+    result = calculate_break_even(
+        fixed_costs=payload.fixed_costs,
+        price_per_unit=payload.price_per_unit,
+        variable_cost_per_unit=payload.variable_cost_per_unit,
+    )
+    return BreakEvenResponse(**result)
